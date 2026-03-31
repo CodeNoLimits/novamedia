@@ -28,6 +28,39 @@ export const PORTFOLIO = [
   { id: "v4", src: "/videos/comic-animation.mp4", fr: "Animation créative — BD", en: "Creative animation — Comic", he: "אנימציה יצירתית — קומיקס", tag: "Créatif", platform: "TikTok" },
 ] as const;
 
+export const WEBSITES = [
+  { id: "w1", url: "https://barukh-sagit-jewelry.vercel.app", img: "https://sagit-video-portfolio.vercel.app/videos/Scene_a_highend_202512021436_h9i47.mp4",
+    fr: { name: "Sagit Bijoux", desc: "E-commerce joaillerie de luxe · 459 produits" },
+    en: { name: "Sagit Jewelry", desc: "Luxury jewelry e-commerce · 459 products" },
+    he: { name: "סאגית תכשיטים", desc: "חנות תכשיטי יוקרה · 459 מוצרים" },
+    tags: ["E-commerce", "Stripe", "Supabase"] },
+  { id: "w2", url: "https://haesh-sheli-new.vercel.app",
+    fr: { name: "HaEsh Sheli", desc: "Librairie en ligne · 6 langues · Paiements intégrés" },
+    en: { name: "HaEsh Sheli", desc: "Online bookstore · 6 languages · Integrated payments" },
+    he: { name: "האש שלי", desc: "חנות ספרים · 6 שפות · תשלומים משולבים" },
+    tags: ["E-commerce", "Multilingual", "Stripe"] },
+  { id: "w3", url: "https://dreamnova-formation-ia.vercel.app",
+    fr: { name: "Formation IA", desc: "Plateforme de cours en ligne · 8 modules · 45 leçons" },
+    en: { name: "AI Training", desc: "Online course platform · 8 modules · 45 lessons" },
+    he: { name: "הכשרת AI", desc: "פלטפורמת קורסים · 8 מודולים · 45 שיעורים" },
+    tags: ["SaaS", "Supabase", "Stripe"] },
+  { id: "w4", url: "https://dreamnova-consult.vercel.app",
+    fr: { name: "DreamNova Consult", desc: "Site agence · Portfolio 63+ projets · SEO" },
+    en: { name: "DreamNova Consult", desc: "Agency site · Portfolio 63+ projects · SEO" },
+    he: { name: "DreamNova Consult", desc: "אתר סוכנות · 63+ פרויקטים · SEO" },
+    tags: ["Agency", "Next.js", "SEO"] },
+  { id: "w5", url: "https://tikoun-aolam.vercel.app",
+    fr: { name: "Tikoun Aolam", desc: "Marketplace spirituelle · Design premium noir & or" },
+    en: { name: "Tikoun Aolam", desc: "Spiritual marketplace · Premium black & gold design" },
+    he: { name: "תיקון עולם", desc: "מרקטפלייס רוחני · עיצוב פרמיום שחור וזהב" },
+    tags: ["Marketplace", "Design", "Next.js"] },
+  { id: "w6", url: "https://moulindore.co.il",
+    fr: { name: "Le Moulin Doré", desc: "Restaurant haut de gamme · Score audit 90/100" },
+    en: { name: "Le Moulin Doré", desc: "Upscale restaurant · Audit score 90/100" },
+    he: { name: "Le Moulin Doré", desc: "מסעדת יוקרה · ציון ביקורת 90/100" },
+    tags: ["Restaurant", "WordPress", "SEO"] },
+] as const;
+
 export const translations = {
   fr: {
     nav: { cta: "Démarrer", demo: "Réalisations", pricing: "Tarifs", contact: "Contact" },
@@ -44,6 +77,7 @@ export const translations = {
     },
     demo: { badge: "Réalisations", title: "Nos dernières productions" },
     demoDisclaimer: "Productions réelles de notre studio IA.",
+    websites: { badge: "Sites Web", title: "Nos réalisations web", sub: "Sites e-commerce, SaaS et vitrines que nous avons conçus et déployés.", visit: "Visiter →" },
     how: {
       badge: "Processus",
       title: "Simple comme bonjour",
@@ -127,6 +161,7 @@ export const translations = {
     },
     demo: { badge: "Portfolio", title: "Our latest productions" },
     demoDisclaimer: "Real productions from our AI studio.",
+    websites: { badge: "Websites", title: "Our web projects", sub: "E-commerce, SaaS and showcase sites we designed and deployed.", visit: "Visit →" },
     how: {
       badge: "Process",
       title: "Ridiculously simple",
@@ -210,6 +245,7 @@ export const translations = {
     },
     demo: { badge: "תיק עבודות", title: "ההפקות האחרונות שלנו" },
     demoDisclaimer: "הפקות אמיתיות מהסטודיו שלנו.",
+    websites: { badge: "אתרי אינטרנט", title: "הפרויקטים שלנו", sub: "חנויות אונליין, SaaS ואתרי תדמית שעיצבנו והשקנו.", visit: "← בקרו" },
     how: {
       badge: "תהליך",
       title: "פשוט להפליא",

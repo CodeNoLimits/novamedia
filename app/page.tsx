@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, type RefObject } from "react";
-import { translations, PLANS, PORTFOLIO, currencySymbol, defaultCurrency, type Lang, type Currency } from "./i18n";
+import { translations, PLANS, PORTFOLIO, WEBSITES, currencySymbol, defaultCurrency, type Lang, type Currency } from "./i18n";
 
 // Intersection Observer hook for scroll animations
 function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
@@ -170,6 +170,64 @@ export default function Home() {
           })}
         </div>
         <p style={{ textAlign: "center", color: "rgba(255,255,255,0.25)", marginTop: 20, fontSize: 11 }}>{t.demoDisclaimer}</p>
+      </section>
+
+      {/* WEBSITES SHOWCASE */}
+      <section style={{ padding: "60px 20px", background: "var(--dark-2)" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <Section>
+            <div style={{ textAlign: "center", marginBottom: 44 }}>
+              <div className="tag" style={{ marginBottom: 10 }}>{t.websites.badge}</div>
+              <h2 style={{ fontSize: "clamp(22px, 4vw, 40px)", fontWeight: 800, marginBottom: 10 }}>{t.websites.title}</h2>
+              <p style={{ color: "rgba(255,255,255,0.4)", fontSize: 14, maxWidth: 500, margin: "0 auto" }}>{t.websites.sub}</p>
+            </div>
+          </Section>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(310px, 1fr))", gap: 16 }}>
+            {WEBSITES.map((w, i) => {
+              const wt = w[lang];
+              return (
+                <Section key={w.id} delay={i * 0.08}>
+                  <a href={w.url} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none", color: "inherit", display: "block" }}>
+                    <div style={{
+                      background: "var(--dark-3)", border: "1px solid #1E1E1E", borderRadius: 12,
+                      overflow: "hidden", transition: "all 0.4s cubic-bezier(0.4,0,0.2,1)", cursor: "pointer",
+                    }}
+                      onMouseEnter={(e) => { const el = e.currentTarget; el.style.transform = "translateY(-6px)"; el.style.borderColor = "rgba(212,175,55,0.3)"; el.style.boxShadow = "0 20px 50px rgba(0,0,0,0.4), 0 0 20px rgba(212,175,55,0.05)"; }}
+                      onMouseLeave={(e) => { const el = e.currentTarget; el.style.transform = "none"; el.style.borderColor = "#1E1E1E"; el.style.boxShadow = "none"; }}
+                    >
+                      {/* URL preview bar */}
+                      <div style={{ background: "#1A1A1A", padding: "8px 14px", display: "flex", alignItems: "center", gap: 8, borderBottom: "1px solid #222" }}>
+                        <div style={{ display: "flex", gap: 4 }}>
+                          <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#ff5f57" }} />
+                          <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#febc2e" }} />
+                          <div style={{ width: 8, height: 8, borderRadius: "50%", background: "#28c840" }} />
+                        </div>
+                        <div style={{ flex: 1, background: "#111", borderRadius: 4, padding: "3px 10px", fontSize: 10, color: "rgba(255,255,255,0.4)", fontFamily: "monospace", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                          {w.url.replace("https://", "")}
+                        </div>
+                      </div>
+                      {/* Content */}
+                      <div style={{ padding: "18px 20px" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
+                          <div>
+                            <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 4 }}>{wt.name}</h3>
+                            <p style={{ color: "rgba(255,255,255,0.45)", fontSize: 12, lineHeight: 1.4 }}>{wt.desc}</p>
+                          </div>
+                          <span style={{ color: "#D4AF37", fontSize: 12, fontWeight: 600, whiteSpace: "nowrap", marginLeft: 12, opacity: 0.7 }}>{t.websites.visit}</span>
+                        </div>
+                        <div style={{ display: "flex", gap: 5, marginTop: 10, flexWrap: "wrap" }}>
+                          {w.tags.map((tag) => (
+                            <span key={tag} style={{ background: "rgba(212,175,55,0.06)", border: "1px solid rgba(212,175,55,0.12)", color: "#D4AF37", padding: "2px 8px", borderRadius: 4, fontSize: 9, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.05em" }}>{tag}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </Section>
+              );
+            })}
+          </div>
+        </div>
       </section>
 
       {/* HOW IT WORKS */}

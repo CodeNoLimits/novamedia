@@ -14,12 +14,18 @@ export const PLANS = {
 } as const;
 
 export const PORTFOLIO = [
-  { id: "v1", src: "/videos/luxury-watch.mp4", fr: "Montre de luxe — Pub produit", en: "Luxury watch — Product ad", he: "שעון יוקרה — פרסומת מוצר", tag: "E-commerce", platform: "Instagram" },
-  { id: "v2", src: "/videos/store-lifestyle.mp4", fr: "Entrée boutique — Lifestyle", en: "Store entrance — Lifestyle", he: "כניסה לחנות — סגנון חיים", tag: "Retail", platform: "TikTok" },
-  { id: "v3", src: "/videos/watch-mechanism.mp4", fr: "Mécanisme horloger — Détail", en: "Watch mechanism — Close-up", he: "מנגנון שעון — תקריב", tag: "Luxe", platform: "Reels" },
-  { id: "v4", src: "/videos/spokesperson.mp4", fr: "Porte-parole IA — Corporate", en: "AI Spokesperson — Corporate", he: "דובר/ת AI — תאגידי", tag: "Corporate", platform: "LinkedIn" },
-  { id: "v5", src: "/videos/comic-animation.mp4", fr: "Animation créative — BD", en: "Creative animation — Comic", he: "אנימציה יצירתית — קומיקס", tag: "Creative", platform: "TikTok" },
-  { id: "v6", src: "/videos/car-brand.mp4", fr: "Marque auto — Lancement", en: "Car brand — Launch", he: "מותג רכב — השקה", tag: "Auto", platform: "YouTube" },
+  // Sagit Haute Joaillerie — best showcase pieces
+  { id: "s1", src: "/videos/sagit-highend.mp4", fr: "Joaillerie luxe — Campagne premium", en: "Luxury jewelry — Premium campaign", he: "תכשיטי יוקרה — קמפיין פרמיום", tag: "Joaillerie", platform: "Instagram" },
+  { id: "s2", src: "/videos/sagit-dramatic.mp4", fr: "Bijou scintillant — Spot dramatique", en: "Sparkling jewel — Dramatic spot", he: "תכשיט נוצץ — ספוט דרמטי", tag: "Luxe", platform: "Reels" },
+  { id: "s3", src: "/videos/sagit-seductive.mp4", fr: "Élégance féminine — Collection", en: "Feminine elegance — Collection", he: "אלגנטיות נשית — קולקציה", tag: "Mode", platform: "TikTok" },
+  { id: "s4", src: "/videos/sagit-homme.mp4", fr: "Collection homme — Mode masculine", en: "Men's collection — Menswear", he: "קולקציית גברים — אופנה", tag: "Mode", platform: "LinkedIn" },
+  { id: "s5", src: "/videos/sagit-contrast.mp4", fr: "Noir & Blanc — Haute joaillerie", en: "Black & White — High jewelry", he: "שחור ולבן — תכשיטים", tag: "Luxe", platform: "Reels" },
+  { id: "s6", src: "/videos/sagit-presenter.mp4", fr: "Présentatrice — Lancement produit", en: "Presenter — Product launch", he: "מגישה — השקת מוצר", tag: "Corporate", platform: "YouTube" },
+  // Other sectors
+  { id: "v1", src: "/videos/store-lifestyle.mp4", fr: "Entrée boutique — Lifestyle", en: "Store entrance — Lifestyle", he: "כניסה לחנות — סגנון חיים", tag: "Retail", platform: "TikTok" },
+  { id: "v2", src: "/videos/spokesperson.mp4", fr: "Porte-parole IA — Corporate", en: "AI Spokesperson — Corporate", he: "דובר/ת AI — תאגידי", tag: "Corporate", platform: "LinkedIn" },
+  { id: "v3", src: "/videos/car-brand.mp4", fr: "Marque auto — Lancement", en: "Car brand — Launch", he: "מותג רכב — השקה", tag: "Auto", platform: "Instagram" },
+  { id: "v4", src: "/videos/comic-animation.mp4", fr: "Animation créative — BD", en: "Creative animation — Comic", he: "אנימציה יצירתית — קומיקס", tag: "Créatif", platform: "TikTok" },
 ] as const;
 
 export const translations = {

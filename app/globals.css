@@ -317,6 +317,46 @@ details[open] .faq-answer {
   animation: float 8s ease-in-out infinite;
 }
 
+/* ---- NAV (Stitch mockup: center links + mobile hamburger) ---- */
+.nav-desktop-links {
+  display: none;
+  align-items: center;
+  gap: 28px;
+  flex: 1;
+  justify-content: center;
+}
+
+@media (min-width: 1024px) {
+  .nav-desktop-links {
+    display: flex !important;
+  }
+  .nav-mobile-toggle {
+    display: none !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  .nav-mobile-toggle {
+    display: flex !important;
+  }
+  .nav-desktop-cta {
+    display: none !important;
+  }
+}
+
+/* ---- HERO scroll chevron ---- */
+@keyframes chevron-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+
+.hero-scroll-chevron {
+  animation: chevron-bounce 2.2s ease-in-out infinite;
+  color: rgba(212, 175, 55, 0.55);
+  margin-top: 40px;
+  cursor: pointer;
+}
+
 /* ---- RESPONSIVE ---- */
 @media (max-width: 768px) {
   .pricing-card.highlighted {

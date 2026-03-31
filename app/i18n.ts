@@ -79,12 +79,12 @@ export const VOICE_PLANS = {
   enterprise: { eur: 4990, usd: 5490, ils: 17900 },
 } as const;
 
-// Web dev pricing (one-time, below market)
+// Web dev pricing (one-time, IL ~25% lower than FR/US)
 export const WEB_PLANS = {
-  landing:    { eur: 890,   usd: 990,   ils: 3490 },
-  vitrine:    { eur: 2490,  usd: 2990,  ils: 9900 },
-  ecommerce:  { eur: 4990,  usd: 5990,  ils: 19900 },
-  saas:       { eur: 14900, usd: 16900, ils: 54900 },
+  landing:    { eur: 890,   usd: 990,   ils: 2590 },
+  vitrine:    { eur: 2490,  usd: 2990,  ils: 7490 },
+  ecommerce:  { eur: 4990,  usd: 5990,  ils: 14900 },
+  saas:       { eur: 14900, usd: 16900, ils: 39900 },
 } as const;
 
 export type ServiceTab = "video" | "web" | "voice";

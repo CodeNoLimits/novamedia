@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, type RefObject } from "react";
-import { translations, PLANS, PORTFOLIO, WEBSITES, currencySymbol, defaultCurrency, type Lang, type Currency } from "./i18n";
+import { translations, PLANS, VOICE_PLANS, WEB_PLANS, PORTFOLIO, WEBSITES, currencySymbol, defaultCurrency, type Lang, type Currency, type ServiceTab } from "./i18n";
 
 // Intersection Observer hook for scroll animations
 function useInView(ref: RefObject<HTMLElement | null>, threshold = 0.15) {
@@ -29,6 +29,7 @@ function Section({ children, className = "", delay = 0 }: { children: React.Reac
 export default function Home() {
   const [lang, setLang] = useState<Lang>("fr");
   const [cur, setCur] = useState<Currency>("eur");
+  const [svcTab, setSvcTab] = useState<ServiceTab>("video");
   const t = translations[lang];
   const isRTL = lang === "he";
   const sym = currencySymbol[cur];
@@ -230,6 +231,40 @@ export default function Home() {
         </div>
       </section>
 
+      {/* SERVICES OVERVIEW */}
+      <section style={{ padding: "60px 20px", background: "var(--dark)" }}>
+        <div style={{ maxWidth: 960, margin: "0 auto" }}>
+          <Section>
+            <div style={{ textAlign: "center", marginBottom: 44 }}>
+              <div className="tag" style={{ marginBottom: 10 }}>{t.services.badge}</div>
+              <h2 style={{ fontSize: "clamp(22px, 4vw, 40px)", fontWeight: 800 }}>{t.services.title}</h2>
+            </div>
+          </Section>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(270px, 1fr))", gap: 16 }}>
+            {(["video", "web", "voice"] as const).map((svc, i) => {
+              const s = t.services[svc];
+              const active = svcTab === svc;
+              return (
+                <Section key={svc} delay={i * 0.1}>
+                  <div onClick={() => setSvcTab(svc)} style={{
+                    background: active ? "linear-gradient(135deg, #1A1A0A, #1A150A)" : "var(--dark-3)",
+                    border: active ? "1px solid rgba(212,175,55,0.4)" : "1px solid #1E1E1E",
+                    borderRadius: 12, padding: 28, cursor: "pointer",
+                    transition: "all 0.4s cubic-bezier(0.4,0,0.2,1)",
+                    transform: active ? "translateY(-4px)" : "none",
+                    boxShadow: active ? "0 12px 40px rgba(212,175,55,0.1)" : "none",
+                  }}>
+                    <div style={{ fontSize: 36, marginBottom: 12 }}>{s.icon}</div>
+                    <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8, color: active ? "#D4AF37" : "#fff" }}>{s.title}</h3>
+                    <p style={{ color: "rgba(255,255,255,0.45)", fontSize: 13, lineHeight: 1.5 }}>{s.desc}</p>
+                  </div>
+                </Section>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* HOW IT WORKS */}
       <section style={{ padding: "60px 20px", background: "var(--dark-2)" }}>
         <div style={{ maxWidth: 920, margin: "0 auto" }}>
@@ -295,18 +330,29 @@ export default function Home() {
         </Section>
       </section>
 
-      {/* PRICING */}
+      {/* PRICING — TABBED */}
       <section id="pricing" style={{ padding: "60px 20px", background: "var(--dark-2)" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto" }}>
           <Section>
-            <div style={{ textAlign: "center", marginBottom: 44 }}>
+            <div style={{ textAlign: "center", marginBottom: 32 }}>
               <div className="tag" style={{ marginBottom: 10 }}>{t.pricing.badge}</div>
               <h2 style={{ fontSize: "clamp(22px, 4vw, 40px)", fontWeight: 800, marginBottom: 8 }}>{t.pricing.title}</h2>
-              <p style={{ color: "rgba(255,255,255,0.35)", marginBottom: 14, fontSize: 14 }}>{t.pricing.sub}</p>
+              <p style={{ color: "rgba(255,255,255,0.35)", marginBottom: 16, fontSize: 14 }}>{t.pricing.sub}</p>
+              {/* Service tabs */}
+              <div style={{ display: "inline-flex", gap: 3, background: "#111", borderRadius: 8, padding: 3, marginBottom: 14 }}>
+                {(["video", "web", "voice"] as const).map((tab) => (
+                  <button key={tab} onClick={() => setSvcTab(tab)}
+                    style={{ background: svcTab === tab ? "linear-gradient(135deg,#D4AF37,#F5D76E)" : "transparent", color: svcTab === tab ? "#0A0A0A" : "rgba(255,255,255,0.4)", border: "none", cursor: "pointer", padding: "8px 20px", borderRadius: 6, fontSize: 13, fontWeight: 700, transition: "all 0.25s" }}>
+                    {t.services.tabs[tab]}
+                  </button>
+                ))}
+              </div>
+              <br />
+              {/* Currency */}
               <div style={{ display: "inline-flex", gap: 2, background: "#111", borderRadius: 6, padding: 2 }}>
                 {curs.map((c) => (
                   <button key={c.code} onClick={() => setCur(c.code)}
-                    style={{ background: cur === c.code ? "linear-gradient(135deg,#D4AF37,#F5D76E)" : "transparent", color: cur === c.code ? "#0A0A0A" : "rgba(255,255,255,0.35)", border: "none", cursor: "pointer", padding: "5px 14px", borderRadius: 4, fontSize: 12, fontWeight: 700, transition: "all 0.2s" }}>
+                    style={{ background: cur === c.code ? "rgba(212,175,55,0.15)" : "transparent", color: cur === c.code ? "#D4AF37" : "rgba(255,255,255,0.3)", border: "none", cursor: "pointer", padding: "4px 12px", borderRadius: 4, fontSize: 11, fontWeight: 700, transition: "all 0.2s" }}>
                     {c.label}
                   </button>
                 ))}
@@ -314,48 +360,116 @@ export default function Home() {
             </div>
           </Section>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(195px, 1fr))", gap: 14, alignItems: "start" }}>
-            {planKeys.map((key, i) => {
-              const meta = planMeta[key];
-              const price = PLANS[key][cur];
-              const planText = t.pricing[key];
-              return (
-                <Section key={key} delay={i * 0.08}>
-                  <div className={`pricing-card ${meta.highlight ? "highlighted" : ""}`}>
-                    {meta.badge && (
-                      <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: "linear-gradient(135deg,#D4AF37,#F5D76E)", color: "#0A0A0A", padding: "3px 12px", borderRadius: 100, fontSize: 10, fontWeight: 800, whiteSpace: "nowrap", zIndex: 2 }}>
-                        {meta.badge}
-                      </div>
-                    )}
-                    <div style={{ marginBottom: 16 }}>
-                      <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 2 }}>{planText.name}</div>
-                      <div style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginBottom: 10 }}>{planText.desc}</div>
-                      <div style={{ display: "flex", alignItems: "baseline", gap: 3 }}>
-                        <span className="gradient-gold" style={{ fontSize: 36, fontWeight: 900, letterSpacing: "-0.03em" }}>
-                          {sym}{price.toLocaleString()}
-                        </span>
-                        <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 11 }}>
-                          {meta.isTrial ? t.pricing.onetime : t.pricing.perMonth}
-                        </span>
-                      </div>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBottom: 20 }}>
-                      {planText.features.map((f) => (
-                        <div key={f} style={{ color: f.startsWith("✗") ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.7)", fontSize: 12, display: "flex", gap: 5, alignItems: "center" }}>
-                          {!f.startsWith("✓") && !f.startsWith("✗") && <span style={{ color: "#D4AF37", fontSize: 9 }}>✦</span>}
-                          {f}
+          {/* VIDEO PRICING */}
+          {svcTab === "video" && (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(195px, 1fr))", gap: 14, alignItems: "start" }}>
+              {planKeys.map((key, i) => {
+                const meta = planMeta[key];
+                const price = PLANS[key][cur];
+                const planText = t.pricing[key];
+                return (
+                  <Section key={key} delay={i * 0.06}>
+                    <div className={`pricing-card ${meta.highlight ? "highlighted" : ""}`}>
+                      {meta.badge && (
+                        <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: "linear-gradient(135deg,#D4AF37,#F5D76E)", color: "#0A0A0A", padding: "3px 12px", borderRadius: 100, fontSize: 10, fontWeight: 800, whiteSpace: "nowrap", zIndex: 2 }}>
+                          {meta.badge}
                         </div>
-                      ))}
+                      )}
+                      <div style={{ marginBottom: 16 }}>
+                        <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 2 }}>{planText.name}</div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginBottom: 10 }}>{planText.desc}</div>
+                        <div style={{ display: "flex", alignItems: "baseline", gap: 3 }}>
+                          <span className="gradient-gold" style={{ fontSize: 36, fontWeight: 900, letterSpacing: "-0.03em" }}>{sym}{price.toLocaleString()}</span>
+                          <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 11 }}>{meta.isTrial ? t.pricing.onetime : t.pricing.perMonth}</span>
+                        </div>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBottom: 20 }}>
+                        {planText.features.map((f) => (
+                          <div key={f} style={{ color: f.startsWith("✗") ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.7)", fontSize: 12, display: "flex", gap: 5, alignItems: "center" }}>
+                            {!f.startsWith("✓") && !f.startsWith("✗") && <span style={{ color: "#D4AF37", fontSize: 9 }}>✦</span>}
+                            {f}
+                          </div>
+                        ))}
+                      </div>
+                      <button className="btn-gold" style={{ width: "100%", textAlign: "center", padding: "10px 0", fontSize: 12, opacity: meta.highlight ? 1 : 0.85 }}
+                        onClick={() => wa(`Plan ${planText.name} Video (${sym}${price})`)}>{meta.isTrial ? t.pricing.ctaTrial : meta.isEnt ? t.pricing.ctaEnterprise : t.pricing.cta}</button>
                     </div>
-                    <button className="btn-gold" style={{ width: "100%", textAlign: "center", padding: "10px 0", fontSize: 12, opacity: meta.highlight ? 1 : 0.85 }}
-                      onClick={() => wa(meta.isEnt ? `Hello, I'm interested in the Enterprise plan` : `Bonjour, je veux le plan ${planText.name} (${sym}${price})`)}>
-                      {meta.isTrial ? t.pricing.ctaTrial : meta.isEnt ? t.pricing.ctaEnterprise : t.pricing.cta}
-                    </button>
-                  </div>
-                </Section>
-              );
-            })}
-          </div>
+                  </Section>
+                );
+              })}
+            </div>
+          )}
+
+          {/* VOICE AI PRICING */}
+          {svcTab === "voice" && (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 14, alignItems: "start" }}>
+              {(["starter", "pro", "business", "enterprise"] as const).map((key, i) => {
+                const price = VOICE_PLANS[key][cur];
+                const planText = t.voicePricing[key];
+                const isPop = key === "pro";
+                return (
+                  <Section key={key} delay={i * 0.06}>
+                    <div className={`pricing-card ${isPop ? "highlighted" : ""}`}>
+                      {isPop && <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: "linear-gradient(135deg,#D4AF37,#F5D76E)", color: "#0A0A0A", padding: "3px 12px", borderRadius: 100, fontSize: 10, fontWeight: 800, whiteSpace: "nowrap", zIndex: 2 }}>{t.pricing.popular}</div>}
+                      <div style={{ marginBottom: 16 }}>
+                        <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 2 }}>{planText.name}</div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginBottom: 10 }}>{planText.desc}</div>
+                        <div style={{ display: "flex", alignItems: "baseline", gap: 3 }}>
+                          <span className="gradient-gold" style={{ fontSize: 36, fontWeight: 900, letterSpacing: "-0.03em" }}>{sym}{price.toLocaleString()}</span>
+                          <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 11 }}>{t.pricing.perMonth}</span>
+                        </div>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBottom: 20 }}>
+                        {planText.features.map((f) => (
+                          <div key={f} style={{ color: f.startsWith("✗") ? "rgba(255,255,255,0.2)" : "rgba(255,255,255,0.7)", fontSize: 12, display: "flex", gap: 5, alignItems: "center" }}>
+                            {!f.startsWith("✓") && !f.startsWith("✗") && <span style={{ color: "#D4AF37", fontSize: 9 }}>✦</span>}
+                            {f}
+                          </div>
+                        ))}
+                      </div>
+                      <button className="btn-gold" style={{ width: "100%", textAlign: "center", padding: "10px 0", fontSize: 12 }}
+                        onClick={() => wa(`Plan ${planText.name} Voice AI (${sym}${price}/mo)`)}>{key === "enterprise" ? t.pricing.ctaEnterprise : t.pricing.cta}</button>
+                    </div>
+                  </Section>
+                );
+              })}
+            </div>
+          )}
+
+          {/* WEB DEV PRICING */}
+          {svcTab === "web" && (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 14, alignItems: "start" }}>
+              {(["landing", "vitrine", "ecommerce", "saas"] as const).map((key, i) => {
+                const price = WEB_PLANS[key][cur];
+                const planText = t.webPricing[key];
+                const isPop = key === "ecommerce";
+                return (
+                  <Section key={key} delay={i * 0.06}>
+                    <div className={`pricing-card ${isPop ? "highlighted" : ""}`}>
+                      {isPop && <div style={{ position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)", background: "linear-gradient(135deg,#D4AF37,#F5D76E)", color: "#0A0A0A", padding: "3px 12px", borderRadius: 100, fontSize: 10, fontWeight: 800, whiteSpace: "nowrap", zIndex: 2 }}>{t.pricing.popular}</div>}
+                      <div style={{ marginBottom: 16 }}>
+                        <div style={{ fontSize: 14, fontWeight: 700, marginBottom: 2 }}>{planText.name}</div>
+                        <div style={{ fontSize: 11, color: "rgba(255,255,255,0.35)", marginBottom: 10 }}>{planText.desc}</div>
+                        <div style={{ display: "flex", alignItems: "baseline", gap: 3 }}>
+                          <span className="gradient-gold" style={{ fontSize: 36, fontWeight: 900, letterSpacing: "-0.03em" }}>{sym}{price.toLocaleString()}</span>
+                          <span style={{ color: "rgba(255,255,255,0.3)", fontSize: 11 }}>{t.pricing.onetime}</span>
+                        </div>
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBottom: 20 }}>
+                        {planText.features.map((f) => (
+                          <div key={f} style={{ color: "rgba(255,255,255,0.7)", fontSize: 12, display: "flex", gap: 5, alignItems: "center" }}>
+                            <span style={{ color: "#D4AF37", fontSize: 9 }}>✦</span>{f}
+                          </div>
+                        ))}
+                      </div>
+                      <button className="btn-gold" style={{ width: "100%", textAlign: "center", padding: "10px 0", fontSize: 12 }}
+                        onClick={() => wa(`${planText.name} (${sym}${price})`)}>{key === "saas" ? t.pricing.ctaEnterprise : t.pricing.cta}</button>
+                    </div>
+                  </Section>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 

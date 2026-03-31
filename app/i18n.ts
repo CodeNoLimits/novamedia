@@ -59,7 +59,35 @@ export const WEBSITES = [
     en: { name: "Le Moulin Doré", desc: "Upscale restaurant · Audit score 90/100" },
     he: { name: "Le Moulin Doré", desc: "מסעדת יוקרה · ציון ביקורת 90/100" },
     tags: ["Restaurant", "WordPress", "SEO"] },
+  { id: "w7", url: "https://eyezen-productions.vercel.app",
+    fr: { name: "Eyezen Productions", desc: "Location événementiel · Son & lumière · Bilingue HE/EN" },
+    en: { name: "Eyezen Productions", desc: "Event equipment rental · Sound & lighting · Bilingual HE/EN" },
+    he: { name: "Eyezen Productions", desc: "השכרת ציוד אירועים · סאונד ותאורה · דו-לשוני" },
+    tags: ["Events", "Glassmorphism", "Bilingual"] },
+  { id: "w8", url: "https://clalit-smile-demo.vercel.app",
+    fr: { name: "Clalit Smile AI", desc: "Réceptionniste vocale IA · 107 cliniques · 4 langues" },
+    en: { name: "Clalit Smile AI", desc: "AI voice receptionist · 107 clinics · 4 languages" },
+    he: { name: "כללית סמייל AI", desc: "פקידת קבלה קולית AI · 107 מרפאות · 4 שפות" },
+    tags: ["Voice AI", "Healthcare", "Gemini"] },
 ] as const;
+
+// Voice AI pricing (slightly below market)
+export const VOICE_PLANS = {
+  starter:    { eur: 139,  usd: 149,  ils: 499 },
+  pro:        { eur: 449,  usd: 499,  ils: 1690 },
+  business:   { eur: 1790, usd: 1990, ils: 6990 },
+  enterprise: { eur: 4990, usd: 5490, ils: 17900 },
+} as const;
+
+// Web dev pricing (one-time, below market)
+export const WEB_PLANS = {
+  landing:    { eur: 890,   usd: 990,   ils: 3490 },
+  vitrine:    { eur: 2490,  usd: 2990,  ils: 9900 },
+  ecommerce:  { eur: 4990,  usd: 5990,  ils: 19900 },
+  saas:       { eur: 14900, usd: 16900, ils: 54900 },
+} as const;
+
+export type ServiceTab = "video" | "web" | "voice";
 
 export const translations = {
   fr: {
@@ -108,14 +136,34 @@ export const translations = {
       scale: { name: "Scale", desc: "Volume & performance", features: ["25 vidéos / mois", "Tous formats", "Révisions illimitées", "✓ Voix off IA", "✓ Sous-titres", "✓ Publication incluse"] },
       enterprise: { name: "Enterprise", desc: "Clé en main, tout inclus", features: ["60+ vidéos / mois", "Formats illimités", "Révisions illimitées", "✓ Voice cloning dédié", "✓ Publication + Analytics", "✓ Account manager dédié", "✓ Priorité 24h"] },
     },
+    services: {
+      badge: "Nos services",
+      title: "Tout ce dont votre business a besoin",
+      tabs: { video: "Vidéos IA", web: "Sites Web", voice: "Agent Vocal IA" },
+      video: { icon: "🎬", title: "Vidéos Social Media", desc: "Contenu premium pour TikTok, Reels et LinkedIn. Livraison 48h." },
+      web: { icon: "🌐", title: "Sites Web & SaaS", desc: "Landing pages, e-commerce et plateformes SaaS sur mesure." },
+      voice: { icon: "🎙️", title: "Agent Vocal IA", desc: "Réceptionniste virtuelle 24/7 pour votre entreprise. Multilingue." },
+    },
+    voicePricing: {
+      starter: { name: "Starter", desc: "1 établissement", features: ["Jusqu'à 50 appels/jour", "1 langue", "Réponses personnalisées", "Tableau de bord"] },
+      pro: { name: "Pro", desc: "Multi-établissements", features: ["Jusqu'à 200 appels/jour", "2 langues", "Intégration CRM", "Analytics avancé", "✓ Transfert d'appels"] },
+      business: { name: "Business", desc: "Gros volume", features: ["500+ appels/jour", "4 langues", "Voice cloning", "API dédiée", "✓ SLA 99.9%", "✓ Support prioritaire"] },
+      enterprise: { name: "Enterprise", desc: "Sur mesure", features: ["Illimité", "Langues illimitées", "Infra dédiée", "Compliance santé", "✓ Account manager", "✓ Intégration complète"] },
+    },
+    webPricing: {
+      landing: { name: "Landing Page", desc: "Page d'atterrissage", features: ["1 page responsive", "Design premium", "SEO de base", "Formulaire contact", "Livraison 5 jours"] },
+      vitrine: { name: "Site Vitrine", desc: "5-10 pages", features: ["Design sur mesure", "Responsive mobile", "SEO avancé", "Blog intégré", "Multilingue option", "Livraison 2 semaines"] },
+      ecommerce: { name: "E-commerce", desc: "Boutique complète", features: ["Catalogue produits", "Paiement Stripe/PayPal", "Gestion stock", "SEO e-commerce", "Multilingue", "Livraison 3 semaines"] },
+      saas: { name: "SaaS / Plateforme", desc: "Application sur mesure", features: ["Architecture custom", "Auth + Dashboard", "API + Base de données", "Stripe abonnements", "Analytics intégré", "Livraison 6-8 semaines"] },
+    },
     faq: {
       title: "Questions fréquentes",
       items: [
         { q: "La qualité est vraiment pro ?", a: "Notre technologie produit une qualité cinéma. La majorité des gens ne font pas la différence avec du contenu filmé par un professionnel." },
         { q: "Et si le résultat ne me plaît pas ?", a: "Chaque plan inclut des révisions. Si après révisions vous n'êtes pas satisfait, on vous rembourse. Garanti." },
         { q: "Je peux annuler à tout moment ?", a: "Oui. Zéro engagement. Vous annulez quand vous voulez, sans frais." },
-        { q: "Vous publiez aussi sur mes réseaux ?", a: "Le plan Scale inclut la publication. Sur les autres plans, c'est en option." },
-        { q: "Combien de temps pour recevoir les vidéos ?", a: "48h maximum après validation du brief. Souvent 24h." },
+        { q: "Vous faites aussi des sites web ?", a: "Oui ! Landing pages, e-commerce, SaaS — nous livrons des sites clé en main avec paiement intégré." },
+        { q: "C'est quoi l'agent vocal IA ?", a: "Un réceptionniste virtuel qui répond au téléphone 24/7, prend les RDV et renseigne vos clients. Multilingue." },
       ],
     },
     results: {
@@ -192,14 +240,34 @@ export const translations = {
       scale: { name: "Scale", desc: "Volume & performance", features: ["25 videos / month", "All formats", "Unlimited revisions", "✓ AI voice-over", "✓ Auto subtitles", "✓ Publishing included"] },
       enterprise: { name: "Enterprise", desc: "Turnkey, all-inclusive", features: ["60+ videos / month", "Unlimited formats", "Unlimited revisions", "✓ Dedicated voice cloning", "✓ Publishing + Analytics", "✓ Dedicated account manager", "✓ 24h priority"] },
     },
+    services: {
+      badge: "Our services",
+      title: "Everything your business needs",
+      tabs: { video: "AI Videos", web: "Websites", voice: "Voice AI Agent" },
+      video: { icon: "🎬", title: "Social Media Videos", desc: "Premium content for TikTok, Reels and LinkedIn. 48h delivery." },
+      web: { icon: "🌐", title: "Websites & SaaS", desc: "Landing pages, e-commerce and custom SaaS platforms." },
+      voice: { icon: "🎙️", title: "AI Voice Agent", desc: "24/7 virtual receptionist for your business. Multilingual." },
+    },
+    voicePricing: {
+      starter: { name: "Starter", desc: "1 location", features: ["Up to 50 calls/day", "1 language", "Custom responses", "Dashboard"] },
+      pro: { name: "Pro", desc: "Multi-location", features: ["Up to 200 calls/day", "2 languages", "CRM integration", "Advanced analytics", "✓ Call transfer"] },
+      business: { name: "Business", desc: "High volume", features: ["500+ calls/day", "4 languages", "Voice cloning", "Dedicated API", "✓ 99.9% SLA", "✓ Priority support"] },
+      enterprise: { name: "Enterprise", desc: "Custom", features: ["Unlimited", "Unlimited languages", "Dedicated infra", "Healthcare compliance", "✓ Account manager", "✓ Full integration"] },
+    },
+    webPricing: {
+      landing: { name: "Landing Page", desc: "Single page", features: ["1 responsive page", "Premium design", "Basic SEO", "Contact form", "5-day delivery"] },
+      vitrine: { name: "Business Site", desc: "5-10 pages", features: ["Custom design", "Mobile responsive", "Advanced SEO", "Blog included", "Multilingual option", "2-week delivery"] },
+      ecommerce: { name: "E-commerce", desc: "Full store", features: ["Product catalog", "Stripe/PayPal payments", "Inventory management", "E-commerce SEO", "Multilingual", "3-week delivery"] },
+      saas: { name: "SaaS / Platform", desc: "Custom application", features: ["Custom architecture", "Auth + Dashboard", "API + Database", "Stripe subscriptions", "Built-in analytics", "6-8 week delivery"] },
+    },
     faq: {
       title: "Frequently asked questions",
       items: [
         { q: "Is the quality really professional?", a: "Our technology produces cinema-grade quality. Most people can't tell the difference from professionally filmed content." },
         { q: "What if I don't like the result?", a: "Every plan includes revisions. If you're still not satisfied, we refund you. Guaranteed." },
         { q: "Can I cancel anytime?", a: "Yes. Zero commitment. Cancel whenever you want, no fees." },
-        { q: "Do you also post on my social media?", a: "The Scale plan includes publishing. On other plans, it's available as an option." },
-        { q: "How long to receive the videos?", a: "48h max after brief validation. Often 24h." },
+        { q: "Do you also build websites?", a: "Yes! Landing pages, e-commerce, SaaS — we deliver turnkey sites with integrated payments." },
+        { q: "What is the AI voice agent?", a: "A virtual receptionist that answers calls 24/7, books appointments and informs your clients. Multilingual." },
       ],
     },
     results: {
@@ -276,14 +344,34 @@ export const translations = {
       scale: { name: "סקייל", desc: "נפח וביצועים", features: ["25 סרטונים / חודש", "כל הפורמטים", "תיקונים ללא הגבלה", "✓ קריינות AI", "✓ כתוביות", "✓ פרסום כלול"] },
       enterprise: { name: "Enterprise", desc: "מפתח ביד, הכל כלול", features: ["60+ סרטונים / חודש", "פורמטים ללא הגבלה", "תיקונים ללא הגבלה", "✓ שיבוט קול ייעודי", "✓ פרסום + אנליטיקס", "✓ מנהל חשבון ייעודי", "✓ עדיפות 24 שעות"] },
     },
+    services: {
+      badge: "השירותים שלנו",
+      title: "כל מה שהעסק שלך צריך",
+      tabs: { video: "סרטוני AI", web: "אתרים", voice: "סוכן קולי AI" },
+      video: { icon: "🎬", title: "סרטונים לרשתות", desc: "תוכן פרמיום לטיקטוק, ריילס ולינקדאין. מסירה תוך 48 שעות." },
+      web: { icon: "🌐", title: "אתרים ו-SaaS", desc: "דפי נחיתה, חנויות אונליין ופלטפורמות SaaS בהתאמה אישית." },
+      voice: { icon: "🎙️", title: "סוכן קולי AI", desc: "פקידת קבלה וירטואלית 24/7 לעסק שלך. רב-לשונית." },
+    },
+    voicePricing: {
+      starter: { name: "סטארטר", desc: "סניף אחד", features: ["עד 50 שיחות/יום", "שפה אחת", "תגובות מותאמות", "לוח בקרה"] },
+      pro: { name: "פרו", desc: "רב-סניפי", features: ["עד 200 שיחות/יום", "2 שפות", "אינטגרציית CRM", "אנליטיקס מתקדם", "✓ העברת שיחות"] },
+      business: { name: "ביזנס", desc: "נפח גבוה", features: ["500+ שיחות/יום", "4 שפות", "שיבוט קול", "API ייעודי", "✓ SLA 99.9%", "✓ תמיכה בעדיפות"] },
+      enterprise: { name: "Enterprise", desc: "בהתאמה אישית", features: ["ללא הגבלה", "שפות ללא הגבלה", "תשתית ייעודית", "תאימות רפואית", "✓ מנהל חשבון", "✓ אינטגרציה מלאה"] },
+    },
+    webPricing: {
+      landing: { name: "דף נחיתה", desc: "עמוד בודד", features: ["עמוד רספונסיבי", "עיצוב פרמיום", "SEO בסיסי", "טופס יצירת קשר", "מסירה תוך 5 ימים"] },
+      vitrine: { name: "אתר תדמית", desc: "5-10 עמודים", features: ["עיצוב בהתאמה", "מותאם למובייל", "SEO מתקדם", "בלוג משולב", "רב-לשוני אופציונלי", "מסירה תוך שבועיים"] },
+      ecommerce: { name: "חנות אונליין", desc: "חנות מלאה", features: ["קטלוג מוצרים", "תשלום Stripe/PayPal", "ניהול מלאי", "SEO לחנויות", "רב-לשוני", "מסירה תוך 3 שבועות"] },
+      saas: { name: "SaaS / פלטפורמה", desc: "אפליקציה בהתאמה", features: ["ארכיטקטורה מותאמת", "Auth + Dashboard", "API + מסד נתונים", "מנויי Stripe", "אנליטיקס משולב", "מסירה 6-8 שבועות"] },
+    },
     faq: {
       title: "שאלות נפוצות",
       items: [
         { q: "האיכות באמת מקצועית?", a: "הטכנולוגיה שלנו מייצרת איכות קולנועית. רוב האנשים לא מבחינים בהבדל מצילום מקצועי." },
         { q: "מה אם התוצאה לא מוצאת חן בעיניי?", a: "כל תוכנית כוללת תיקונים. אם עדיין לא מרוצים, נחזיר לכם. מובטח." },
         { q: "אפשר לבטל בכל עת?", a: "כן. אפס התחייבות. מבטלים מתי שרוצים, ללא עלויות." },
-        { q: "אתם גם מפרסמים ברשתות שלי?", a: "תוכנית סקייל כוללת פרסום. בתוכניות אחרות, זה אופציונלי." },
-        { q: "כמה זמן עד שמקבלים?", a: "48 שעות מקסימום אחרי אישור הבריף. לעתים קרובות 24 שעות." },
+        { q: "אתם גם בונים אתרים?", a: "כן! דפי נחיתה, חנויות אונליין, SaaS — אנחנו מספקים אתרים מפתח ביד עם תשלומים משולבים." },
+        { q: "מה זה סוכן קולי AI?", a: "פקידת קבלה וירטואלית שעונה לטלפון 24/7, קובעת תורים ומסבירה ללקוחות. רב-לשונית." },
       ],
     },
     results: {

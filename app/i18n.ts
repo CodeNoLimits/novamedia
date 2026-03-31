@@ -69,6 +69,11 @@ export const WEBSITES = [
     en: { name: "Clalit Smile AI", desc: "AI voice receptionist · 107 clinics · 4 languages" },
     he: { name: "כללית סמייל AI", desc: "פקידת קבלה קולית AI · 107 מרפאות · 4 שפות" },
     tags: ["Voice AI", "Healthcare", "Gemini"] },
+  { id: "w9", url: "https://dreamnova-facturation-jfkvb8sap-dream-ais-projects.vercel.app",
+    fr: { name: "DreamNova Facturation", desc: "SaaS facturation électronique 2026 · Conformité française · IA" },
+    en: { name: "DreamNova Invoicing", desc: "Electronic invoicing SaaS 2026 · French compliance · AI" },
+    he: { name: "DreamNova חשבוניות", desc: "SaaS חשבוניות אלקטרוניות 2026 · תאימות צרפתית · AI" },
+    tags: ["SaaS", "Gemini AI", "Compliance"] },
 ] as const;
 
 // Voice AI pricing (slightly below market)
